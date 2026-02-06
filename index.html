@@ -1,477 +1,473 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROI-калькулятор задач — АльфаСтрахование Жизнь</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROI-калькулятор задач — АльфаСтрахование Жизнь</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="app-shell">
-        <header class="app-header">
-            <div class="brand">
-                <div class="brand-mark">
-                    <div class="brand-mark-letter">a</div>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="brand-mark-letter">a</span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">АльфаСтрахование Жизнь</span>
+          <span class="brand-subtitle">ROI-калькулятор задач</span>
+        </div>
+      </div>
+      <div class="brief-status">
+        <span class="brief-status-label">Статус брифа:</span>
+        <span id="briefStatus" class="brief-status-chip brief-status-pending">⏳ Требует заполнения</span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- Карточка: Заголовок задачи -->
+      <section class="card card-task">
+        <h2 class="card-title">Заголовок задачи</h2>
+        <div class="task-grid">
+          <div class="field">
+            <label for="taskTitle">Название</label>
+            <input type="text" id="taskTitle" placeholder="Например: Улучшение онбординга в ЛК" />
+          </div>
+          <div class="field">
+            <label for="taskOwner">Инициатор</label>
+            <input type="text" id="taskOwner" placeholder="ФИО / команда" />
+          </div>
+          <div class="field">
+            <label for="taskDate">Дата</label>
+            <input type="date" id="taskDate" />
+          </div>
+          <div class="field">
+            <label for="taskStatus">Статус</label>
+            <select id="taskStatus">
+              <option value="draft">Черновик</option>
+              <option value="review">На рассмотрении</option>
+              <option value="approved">Согласовано</option>
+              <option value="in-progress">В работе</option>
+              <option value="done">Реализовано</option>
+            </select>
+          </div>
+          <div class="field field-wide">
+            <label for="taskDescription">Краткое описание задачи</label>
+            <textarea id="taskDescription" rows="3" placeholder="Опишите, что нужно сделать и какой результат вы ожидаете."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- Карточки критериев -->
+      <section class="criteria-section">
+        <h2 class="section-title">Критерии ценности</h2>
+        <div class="criteria-grid">
+          <!-- Влияние на доход -->
+          <article class="card criterion-card">
+            <div class="criterion-accent"></div>
+            <div class="criterion-content">
+              <div class="criterion-header">
+                <span class="criterion-emoji">💰</span>
+                <div>
+                  <h3>Влияние на доход</h3>
+                  <p class="criterion-caption">Рост премий, кросс/апселл, конверсия</p>
                 </div>
-                <div class="brand-text">
-                    <div class="brand-name">АльфаСтрахование Жизнь</div>
-                    <div class="brand-subtitle">ROI-калькулятор задач</div>
+              </div>
+              <div class="criterion-body">
+                <p class="criterion-description">
+                  Прямой рост прибыли и удержание клиентов: продажи, продление полисов, снижение оттока.
+                </p>
+                <p class="criterion-description subtle">
+                  💡 Вопрос для самопроверки: «Если мы НЕ сделаем эту задачу — сколько денег потеряем или не заработаем за год?»
+                </p>
+                <div class="field inline">
+                  <label for="scoreRevenue">Оценка (1–5)</label>
+                  <select id="scoreRevenue" class="criterion-select">
+                    <option value="">—</option>
+                    <option value="0">0 — Не влияет</option>
+                    <option value="1">1 — Низкое</option>
+                    <option value="2">2</option>
+                    <option value="3">3 — Среднее</option>
+                    <option value="4">4</option>
+                    <option value="5">5 — Высокое</option>
+                  </select>
                 </div>
+                <div class="field">
+                  <label for="reasonRevenue">Обоснование</label>
+                  <textarea id="reasonRevenue" rows="3" placeholder="Как именно задача повлияет на доход?"></textarea>
+                </div>
+              </div>
             </div>
-            <div class="brief-status">
-                <span class="brief-status-label">Статус брифа:</span>
-                <span id="briefStatus" class="brief-status-chip">⏳ Требует заполнения</span>
+          </article>
+
+          <!-- Улучшение UX -->
+          <article class="card criterion-card">
+            <div class="criterion-accent"></div>
+            <div class="criterion-content">
+              <div class="criterion-header">
+                <span class="criterion-emoji">😊</span>
+                <div>
+                  <h3>Улучшение UX</h3>
+                  <p class="criterion-caption">Упрощение сценариев, повышение NPS, CSAT</p>
+                </div>
+              </div>
+              <div class="criterion-body">
+                <p class="criterion-description">
+                  Улучшение цифрового и офлайн-опыта клиентов: понятность, скорость, меньше ошибок и тупиков.
+                </p>
+                <p class="criterion-description subtle">
+                  💡 Вопрос для самопроверки: «Сколько обращений в поддержку эта задача сократит? Или на сколько процентов упростит ключевой сценарий (покупка/оформление)?»
+                </p>
+                <div class="field inline">
+                  <label for="scoreUx">Оценка (1–5)</label>
+                  <select id="scoreUx" class="criterion-select">
+                    <option value="">—</option>
+                    <option value="0">0 — Не влияет</option>
+                    <option value="1">1 — Низкое</option>
+                    <option value="2">2</option>
+                    <option value="3">3 — Среднее</option>
+                    <option value="4">4</option>
+                    <option value="5">5 — Высокое</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="reasonUx">Обоснование</label>
+                  <textarea id="reasonUx" rows="3" placeholder="Как улучшится опыт клиента?"></textarea>
+                </div>
+              </div>
             </div>
-        </header>
+          </article>
 
-        <main class="app-main">
-            <!-- Блок 1: Заголовок задачи -->
-            <section class="card card-task">
-                <h2 class="card-title">Заголовок задачи</h2>
-                <div class="task-grid">
-                    <div class="field">
-                        <label for="taskTitle">Название</label>
-                        <input type="text" id="taskTitle" class="input-field" placeholder="Название задачи">
-                    </div>
-                    <div class="field">
-                        <label for="taskOwner">Инициатор</label>
-                        <input type="text" id="taskOwner" class="input-field" placeholder="ФИО/отдел">
-                    </div>
-                    <div class="field">
-                        <label for="taskDate">Дата</label>
-                        <input type="text" id="taskDate" class="input-field" value="2/4/26" readonly>
-                    </div>
-                    <div class="field field-wide">
-                        <label for="taskDescription">Краткое описание задачи</label>
-                        <textarea id="taskDescription" class="input-field" placeholder="Опишите задачу кратко"></textarea>
-                    </div>
+          <!-- Снижение рисков -->
+          <article class="card criterion-card">
+            <div class="criterion-accent"></div>
+            <div class="criterion-content">
+              <div class="criterion-header">
+                <span class="criterion-emoji">🛡️</span>
+                <div>
+                  <h3>Снижение рисков</h3>
+                  <p class="criterion-caption">Фрод, регуляторика, инциденты, комплаенс</p>
                 </div>
-            </section>
-
-            <!-- Блок 2: Критерии ценности -->
-            <section class="card criteria-section">
-                <h2 class="card-title">Критерии ценности</h2>
-                <div class="criteria-grid">
-                    <div class="criterion-card">
-                        <div class="criterion-accent"></div>
-                        <div class="criterion-content">
-                            <div class="criterion-header">
-                                <div class="criterion-emoji">💰</div>
-                                <h3>Влияние на доход</h3>
-                            </div>
-                            <div class="criterion-caption">Рост премий, кросс/апселл, конверсия</div>
-                            <div class="criterion-description">
-                                Прямой рост прибыли и удержание клиентов: продажи, продление полисов, снижение оттока.
-                            </div>
-                            <div class="criterion-description subtle">
-                                💡 Вопрос для самопроверки: «Если мы НЕ сделаем эту задачу — сколько денег потеряем или не заработаем за год?»
-                            </div>
-                            <div class="criterion-body">
-                                <div class="field">
-                                    <label for="scoreRevenue">Оценка (1–5)</label>
-                                    <select id="scoreRevenue" class="input-field criterion-select">
-                                        <option value="0">—</option>
-                                        <option value="1">1 — Не влияет</option>
-                                        <option value="2">2 — Низкое</option>
-                                        <option value="3">3 — Среднее</option>
-                                        <option value="4">4 — Высокое</option>
-                                        <option value="5">5 — Высоко</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="reasonRevenue">Обоснование</label>
-                                    <textarea id="reasonRevenue" class="input-field" placeholder="Как именно увеличит доход?"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="criterion-card">
-                        <div class="criterion-accent"></div>
-                        <div class="criterion-content">
-                            <div class="criterion-header">
-                                <div class="criterion-emoji">😊</div>
-                                <h3>Улучшение UX</h3>
-                            </div>
-                            <div class="criterion-caption">Упрощение сценариев, повышение NPS, CSAT</div>
-                            <div class="criterion-description">
-                                Улучшение цифрового и офлайн-опыта клиентов: понятность, скорость, меньше ошибок и тупиков.
-                            </div>
-                            <div class="criterion-description subtle">
-                                💡 Вопрос для самопроверки: «Сколько обращений в поддержку эта задача сократит? Или на сколько процентов упростит ключевой сценарий (покупка/оформление)?»
-                            </div>
-                            <div class="criterion-body">
-                                <div class="field">
-                                    <label for="scoreUx">Оценка (1–5)</label>
-                                    <select id="scoreUx" class="input-field criterion-select">
-                                        <option value="0">—</option>
-                                        <option value="1">1 — Не влияет</option>
-                                        <option value="2">2 — Низкое</option>
-                                        <option value="3">3 — Среднее</option>
-                                        <option value="4">4 — Высокое</option>
-                                        <option value="5">5 — Высоко</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="reasonUx">Обоснование</label>
-                                    <textarea id="reasonUx" class="input-field" placeholder="Какую боль решает?"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="criterion-card">
-                        <div class="criterion-accent"></div>
-                        <div class="criterion-content">
-                            <div class="criterion-header">
-                                <div class="criterion-emoji">🛡️</div>
-                                <h3>Снижение рисков</h3>
-                            </div>
-                            <div class="criterion-caption">Фрод, регуляторика, инциденты, комплаенс</div>
-                            <div class="criterion-description">
-                                Снижение финансовых, репутационных и юридических рисков: регуляторные требования, фрод, инциденты.
-                            </div>
-                            <div class="criterion-description subtle">
-                                💡 Вопрос для самопроверки: «Какой максимальный ущерб (финансовый, репутационный, юридический) может возникнуть, если мы НЕ сделаем эту задачу?»
-                            </div>
-                            <div class="criterion-body">
-                                <div class="field">
-                                    <label for="scoreRisk">Оценка (1–5)</label>
-                                    <select id="scoreRisk" class="input-field criterion-select">
-                                        <option value="0">—</option>
-                                        <option value="1">1 — Не влияет</option>
-                                        <option value="2">2 — Низкое</option>
-                                        <option value="3">3 — Среднее</option>
-                                        <option value="4">4 — Высокое</option>
-                                        <option value="5">5 — Высоко</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="reasonRisk">Обоснование</label>
-                                    <textarea id="reasonRisk" class="input-field" placeholder="Какой риск предотвращает?"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="criterion-card">
-                        <div class="criterion-accent"></div>
-                        <div class="criterion-content">
-                            <div class="criterion-header">
-                                <div class="criterion-emoji">❤️</div>
-                                <h3>Забота о клиенте</h3>
-                            </div>
-                            <div class="criterion-caption">Лояльность, доверие, эмоциональная ценность</div>
-                            <div class="criterion-description">
-                                Проекты, усиливающие доверие и заботу: прозрачность условий, проактивные уведомления, поддержка в сложных ситуациях.
-                            </div>
-                            <div class="criterion-description subtle">
-                                💡 Вопрос для самопроверки: «Как клиент почувствует нашу заботу? Станет ли ему проще, спокойнее, безопаснее?»
-                            </div>
-                            <div class="criterion-body">
-                                <div class="field">
-                                    <label for="scoreCare">Оценка (1–5)</label>
-                                    <select id="scoreCare" class="input-field criterion-select">
-                                        <option value="0">—</option>
-                                        <option value="1">1 — Не влияет</option>
-                                        <option value="2">2 — Низкое</option>
-                                        <option value="3">3 — Среднее</option>
-                                        <option value="4">4 — Высокое</option>
-                                        <option value="5">5 — Высоко</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="reasonCare">Обоснование</label>
-                                    <textarea id="reasonCare" class="input-field" placeholder="Как улучшит восприятие клиентом компании?"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="criterion-body">
+                <p class="criterion-description">
+                  Снижение финансовых, репутационных и юридических рисков: регуляторные требования, фрод, инциденты.
+                </p>
+                <p class="criterion-description subtle">
+                  💡 Вопрос для самопроверки: «Какой максимальный ущерб (финансовый, репутационный, юридический) может возникнуть, если мы НЕ сделаем эту задачу?»
+                </p>
+                <div class="field inline">
+                  <label for="scoreRisk">Оценка (1–5)</label>
+                  <select id="scoreRisk" class="criterion-select">
+                    <option value="">—</option>
+                    <option value="0">0 — Не влияет</option>
+                    <option value="1">1 — Низкое</option>
+                    <option value="2">2</option>
+                    <option value="3">3 — Среднее</option>
+                    <option value="4">4</option>
+                    <option value="5">5 — Высокое</option>
+                  </select>
                 </div>
-            </section>
-
-            <!-- Блок 3: Отправка брифа -->
-            <section class="card card-send">
-                <h2 class="card-title">Отправка брифа на оценку</h2>
-                <p class="card-subtitle">Форма уйдёт на почту команды оценки, вы сможете дополнительно отредактировать письмо.</p>
-                <div class="send-grid">
-                    <div class="send-actions">
-                        <div class="field">
-                            <label for="requesterEmail">E-mail заказчика</label>
-                            <input type="email" id="requesterEmail" class="input-field" placeholder="email@domain.com">
-                        </div>
-                        <button id="sendToEmailBtn" class="primary-btn">
-                            <i class="fas fa-paper-plane"></i> Отправить на оценку
-                        </button>
-                        <button id="sendToRequesterBtn" class="ghost-btn">
-                            <i class="fas fa-share"></i> Отправить итоговую оценку заказчику
-                        </button>
-                        <p class="send-hint">
-                            На адрес LebedevaIM@alfastrah.ru будет подготовлено письмо со ссылкой на калькулятор и всеми введёнными данными.
-                        </p>
-                        <p class="send-hint">
-                            Владелец продукта при необходимости скорректирует расчёт и вернёт итоговую оценку заказчику.
-                        </p>
-                        <p id="sendThankyou" class="send-thank hidden">
-                            Спасибо за заявку! В ближайшее время к вам вернутся с итоговой оценкой. На почту команды придёт ссылка на этот калькулятор с введёнными данными, владелец продукта внесёт правки и отправит вам финальное значение.
-                        </p>
-                    </div>
-                    <div class="send-error" id="sendError"></div>
+                <div class="field">
+                  <label for="reasonRisk">Обоснование</label>
+                  <textarea id="reasonRisk" rows="3" placeholder="Какие риски уменьшатся и как?"></textarea>
                 </div>
-            </section>
+              </div>
+            </div>
+          </article>
 
-            <!-- Блок 4: Оценка трудозатрат -->
-            <section class="card">
-                <h2 class="card-title">Оценка трудозатрат</h2>
-                <p class="card-subtitle">Роли, дни и ставки</p>
-                <div class="effort-table-wrapper">
-                    <table class="effort-table">
-                        <thead>
-                            <tr>
-                                <th>Роль</th>
-                                <th>Дни</th>
-                                <th>Стоимость, ₽</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="role-row" data-role-key="analyst">
-                                <td>Аналитик</td>
-                                <td><input type="number" class="effort-days" value="0" min="0" step="0.5"></td>
-                                <td class="effort-cost">0 ₽</td>
-                            </tr>
-                            <tr class="role-row" data-role-key="designer">
-                                <td>Дизайнер</td>
-                                <td><input type="number" class="effort-days" value="0" min="0" step="0.5"></td>
-                                <td class="effort-cost">0 ₽</td>
-                            </tr>
-                            <tr class="role-row" data-role-key="frontend">
-                                <td>Фронтенд</td>
-                                <td><input type="number" class="effort-days" value="0" min="0" step="0.5"></td>
-                                <td class="effort-cost">0 ₽</td>
-                            </tr>
-                            <tr class="role-row" data-role-key="backend">
-                                <td>Бэкенд</td>
-                                <td><input type="number" class="effort-days" value="0" min="0" step="0.5"></td>
-                                <td class="effort-cost">0 ₽</td>
-                            </tr>
-                            <tr class="role-row" data-role-key="system-analyst">
-                                <td>Системный аналитик (интеграция)</td>
-                                <td><input type="number" class="effort-days" value="0" min="0" step="0.5"></td>
-                                <td class="effort-cost">0 ₽</td>
-                            </tr>
-                            <tr class="role-row" data-role-key="integration-dev">
-                                <td>Разработчик смежной команды (интеграция)</td>
-                                <td><input type="number" class="effort-days" value="0" min="0" step="0.5"></td>
-                                <td class="effort-cost">0 ₽</td>
-                            </tr>
-                            <tr class="role-row" data-role-key="architect">
-                                <td>Архитектор</td>
-                                <td><input type="number" class="effort-days" value="0" min="0" step="0.5"></td>
-                                <td class="effort-cost">0 ₽</td>
-                            </tr>
-                            <tr>
-                                <td class="effort-total-label">Итого стоимость разработки</td>
-                                <td>0</td>
-                                <td id="totalCostCell" class="effort-total-value">0 ₽</td>
-                            </tr>
-                        </tbody>
-                    </table>
+          <!-- Забота о клиенте -->
+          <article class="card criterion-card">
+            <div class="criterion-accent"></div>
+            <div class="criterion-content">
+              <div class="criterion-header">
+                <span class="criterion-emoji">❤️</span>
+                <div>
+                  <h3>Забота о клиенте</h3>
+                  <p class="criterion-caption">Лояльность, доверие, эмоциональная ценность</p>
                 </div>
-            </section>
-
-            <!-- Блок 5: Окупаемость -->
-            <section class="card card-roi">
-                <h2 class="card-title">Окупаемость</h2>
-                <div class="roi-grid">
-                    <div class="roi-metric">
-                        <div class="roi-label">Стоимость разработки</div>
-                        <div id="totalCost" class="roi-value">0 ₽</div>
-                    </div>
-                    <div class="roi-metric">
-                        <div class="roi-label">Годовая выгода</div>
-                        <div id="annualBenefit" class="roi-value">0 ₽</div>
-                    </div>
-                    <div class="roi-metric">
-                        <div class="roi-label">Ежемесячная выгода</div>
-                        <div id="monthlyBenefit" class="roi-value">0 ₽</div>
-                    </div>
-                    <div class="roi-metric">
-                        <div class="roi-label">Срок окупаемости</div>
-                        <div id="paybackPeriod" class="roi-value">—</div>
-                        <div class="roi-hint">в месяцах</div>
-                    </div>
-                    <div class="roi-metric">
-                        <div class="roi-label">ROI за год</div>
-                        <div id="roi" class="roi-value">0%</div>
-                    </div>
-                    <div class="roi-metric roi-recommendation">
-                        <div class="roi-label">Рекомендация</div>
-                        <div id="recommendation" class="roi-value roi-value-muted">Недостаточно данных</div>
-                    </div>
+              </div>
+              <div class="criterion-body">
+                <p class="criterion-description">
+                  Проекты, усиливающие доверие и заботу: прозрачность условий, проактивные уведомления, поддержка в сложных ситуациях.
+                </p>
+                <p class="criterion-description subtle">
+                  💡 Вопрос для самопроверки: «Как клиент почувствует нашу заботу? Станет ли ему проще, спокойнее, безопаснее?»
+                </p>
+                <div class="field inline">
+                  <label for="scoreCare">Оценка (1–5)</label>
+                  <select id="scoreCare" class="criterion-select">
+                    <option value="">—</option>
+                    <option value="0">0 — Не влияет</option>
+                    <option value="1">1 — Низкое</option>
+                    <option value="2">2</option>
+                    <option value="3">3 — Среднее</option>
+                    <option value="4">4</option>
+                    <option value="5">5 — Высокое</option>
+                  </select>
                 </div>
-            </section>
-
-            <!-- Админ-панель -->
-            <section class="card admin-wrapper hidden" id="adminSection">
-                <h2 class="card-title">Админ-панель</h2>
-                <p class="card-subtitle">Настройка коэффициентов расчёта</p>
-                <form id="adminLoginForm" class="admin-login-form">
-                    <div class="field">
-                        <label for="adminPassword">Пароль</label>
-                        <input type="password" id="adminPassword" class="input-field" placeholder="Введите пароль">
-                    </div>
-                    <button type="submit" class="primary-btn">Войти</button>
-                </form>
-                <p class="admin-error" id="adminError"></p>
-                
-                <div class="admin-section">
-                    <div class="admin-section-divider"></div>
-                    <h3 class="section-title">Коэффициенты расчёта годовой выгоды</h3>
-                    <p>Значения по умолчанию заданы в соответствии с методологией команды.</p>
-                    
-                    <div class="admin-grid">
-                        <div class="admin-row">
-                            <div class="admin-label">💰 Влияние на доход</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="coefRevenue">Коэффициент</label>
-                                    <input type="number" id="coefRevenue" class="input-field" value="3" min="1" max="5">
-                                </div>
-                                <div>
-                                    <label for="convRevenue">Конвертация</label>
-                                    <input type="number" id="convRevenue" class="input-field" value="10000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">😊 Улучшение UX</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="coefUx">Коэффициент</label>
-                                    <input type="number" id="coefUx" class="input-field" value="2.5" min="1" max="5">
-                                </div>
-                                <div>
-                                    <label for="convUx">Конвертация</label>
-                                    <input type="number" id="convUx" class="input-field" value="15000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">🛡️ Снижение рисков</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="coefRisk">Коэффициент</label>
-                                    <input type="number" id="coefRisk" class="input-field" value="2" min="1" max="5">
-                                </div>
-                                <div>
-                                    <label for="convRisk">Конвертация</label>
-                                    <input type="number" id="convRisk" class="input-field" value="2000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">❤️ Забота о клиенте</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="coefCare">Коэффициент</label>
-                                    <input type="number" id="coefCare" class="input-field" value="1.5" min="1" max="5">
-                                </div>
-                                <div>
-                                    <label for="convCare">Конвертация</label>
-                                    <input type="number" id="convCare" class="input-field" value="5000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="admin-section-divider"></div>
-                    <h3 class="section-title">Стоимость работы команды</h3>
-                    <p>Ставки по умолчанию, ₽/день (используются в таблице трудозатрат).</p>
-                    
-                    <div class="admin-grid">
-                        <div class="admin-row">
-                            <div class="admin-label">Аналитик</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="rateAnalyst">Ставка, ₽/день</label>
-                                    <input type="number" id="rateAnalyst" class="input-field" value="10000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">Дизайнер</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="rateDesigner">Ставка, ₽/день</label>
-                                    <input type="number" id="rateDesigner" class="input-field" value="7000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">Фронтенд</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="rateFrontend">Ставка, ₽/день</label>
-                                    <input type="number" id="rateFrontend" class="input-field" value="9000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">Бэкенд</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="rateBackend">Ставка, ₽/день</label>
-                                    <input type="number" id="rateBackend" class="input-field" value="20000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">Системный аналитик (интеграция)</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="rateSystemAnalyst">Ставка, ₽/день</label>
-                                    <input type="number" id="rateSystemAnalyst" class="input-field" value="12000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">Разработчик смежной команды (интеграция)</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="rateIntegrationDev">Ставка, ₽/день</label>
-                                    <input type="number" id="rateIntegrationDev" class="input-field" value="15000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-row">
-                            <div class="admin-label">Архитектор</div>
-                            <div class="admin-fields">
-                                <div>
-                                    <label for="rateArchitect">Ставка, ₽/день</label>
-                                    <input type="number" id="rateArchitect" class="input-field" value="20000" min="0">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="admin-hint">
-                        Изменения коэффициентов и ставок автоматически применяются к расчёту годовой выгоды и стоимости.
-                    </p>
+                <div class="field">
+                  <label for="reasonCare">Обоснование</label>
+                  <textarea id="reasonCare" rows="3" placeholder="Как вырастет забота о клиенте?"></textarea>
                 </div>
-            </section>
-        </main>
-    </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
 
-    <script src="script.js"></script>
+      <!-- Отправка брифа на оценку -->
+      <section class="card card-send">
+        <div class="card-header-inline">
+          <h2 class="card-title">Отправка брифа на оценку</h2>
+          <span class="card-subtitle">Форма уйдёт на почту команды оценки, вы сможете дополнительно отредактировать письмо.</span>
+        </div>
+        <div class="send-grid">
+          <div class="field">
+            <label for="requesterEmail">E-mail заказчика</label>
+            <input type="email" id="requesterEmail" placeholder="name@alfastrah.ru" />
+          </div>
+          <div class="send-actions">
+            <button type="button" id="sendToEmailBtn" class="primary-btn">Отправить на оценку</button>
+            <button type="button" id="sendToRequesterBtn" class="ghost-btn">Отправить итоговую оценку заказчику</button>
+            <p class="send-hint">
+              На адрес <strong>LebedevaIM@alfastrah.ru</strong> будет подготовлено письмо со ссылкой на калькулятор и всеми введёнными данными.
+              Владелец продукта при необходимости скорректирует расчёт и вернёт итоговую оценку заказчику.
+            </p>
+            <p id="sendThankyou" class="send-thank hidden">
+              Спасибо за заявку! В ближайшее время к вам вернутся с итоговой оценкой. На почту команды придёт ссылка на этот калькулятор с введёнными данными, владелец продукта внесёт правки и отправит вам финальное значение.
+            </p>
+            <p id="sendError" class="send-error" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Оценка трудозатрат -->
+      <section class="card card-effort">
+        <div class="card-header-inline">
+          <h2 class="card-title">Оценка трудозатрат</h2>
+          <span class="card-subtitle">Роли, дни и ставки</span>
+        </div>
+        <div class="effort-table-wrapper">
+          <table class="effort-table">
+            <thead>
+              <tr>
+                <th>Роль</th>
+                <th>Дни</th>
+                <th>Стоимость, ₽</th>
+              </tr>
+            </thead>
+            <tbody id="effortBody">
+              <tr class="role-row" data-role-key="analyst">
+                <td>Аналитик</td>
+                <td><input type="number" min="0" class="effort-days" placeholder="0" /></td>
+                <td class="effort-cost">0</td>
+              </tr>
+              <tr class="role-row" data-role-key="designer">
+                <td>Дизайнер</td>
+                <td><input type="number" min="0" class="effort-days" placeholder="0" /></td>
+                <td class="effort-cost">0</td>
+              </tr>
+              <tr class="role-row" data-role-key="frontend">
+                <td>Фронтенд</td>
+                <td><input type="number" min="0" class="effort-days" placeholder="0" /></td>
+                <td class="effort-cost">0</td>
+              </tr>
+              <tr class="role-row" data-role-key="backend">
+                <td>Бэкенд</td>
+                <td><input type="number" min="0" class="effort-days" placeholder="0" /></td>
+                <td class="effort-cost">0</td>
+              </tr>
+              <tr class="role-row" data-role-key="system-analyst">
+                <td>Системный аналитик (интеграция)</td>
+                <td><input type="number" min="0" class="effort-days" placeholder="0" /></td>
+                <td class="effort-cost">0</td>
+              </tr>
+              <tr class="role-row" data-role-key="integration-dev">
+                <td>Разработчик смежной команды (интеграция)</td>
+                <td><input type="number" min="0" class="effort-days" placeholder="0" /></td>
+                <td class="effort-cost">0</td>
+              </tr>
+              <tr class="role-row" data-role-key="architect">
+                <td>Архитектор</td>
+                <td><input type="number" min="0" class="effort-days" placeholder="0" /></td>
+                <td class="effort-cost">0</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="effort-total-label">Итого стоимость разработки</td>
+                <td id="totalCostCell" class="effort-total-value">0</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- Окупаемость -->
+      <section class="card card-roi">
+        <div class="card-header-inline">
+          <h2 class="card-title">Окупаемость</h2>
+          <button id="recalculateBtn" type="button" class="primary-btn">Пересчитать</button>
+        </div>
+        <div class="roi-grid">
+          <div class="roi-metric">
+            <span class="roi-label">Стоимость разработки</span>
+            <span id="totalCost" class="roi-value">0 ₽</span>
+          </div>
+          <div class="roi-metric">
+            <span class="roi-label">Годовая выгода</span>
+            <span id="annualBenefit" class="roi-value">0 ₽</span>
+          </div>
+          <div class="roi-metric">
+            <span class="roi-label">Срок окупаемости</span>
+            <span id="paybackPeriod" class="roi-value">—</span>
+            <span class="roi-hint">в месяцах</span>
+          </div>
+          <div class="roi-metric roi-recommendation">
+            <span class="roi-label">Рекомендация</span>
+            <span id="recommendation" class="roi-value roi-value-muted">Недостаточно данных</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Админ-блок -->
+      <section class="admin-wrapper">
+        <div class="card admin-login-card">
+          <div class="card-header-inline">
+            <h2 class="card-title">Админ-панель</h2>
+            <span class="card-subtitle">Настройка коэффициентов расчёта</span>
+          </div>
+          <form id="adminLoginForm" class="admin-login-form">
+            <div class="field inline">
+              <label for="adminPassword">Пароль</label>
+              <input type="password" id="adminPassword" placeholder="Введите пароль администратора" />
+            </div>
+            <button type="submit" class="ghost-btn">Войти</button>
+            <span id="adminError" class="admin-error" aria-live="polite"></span>
+          </form>
+        </div>
+
+        <section id="adminSection" class="card admin-section hidden" aria-hidden="true">
+          <h3 class="card-title">Коэффициенты расчёта годовой выгоды</h3>
+          <p class="card-subtitle">Значения по умолчанию заданы в соответствии с методологией команды.</p>
+          <div class="admin-grid">
+            <div class="admin-row">
+              <div class="admin-label">💰 Влияние на доход</div>
+              <div class="admin-fields">
+                <label>Коэффициент
+                  <input type="number" step="0.1" id="coefRevenue" value="3" />
+                </label>
+                <label>Конвертация
+                  <input type="number" step="100" id="convRevenue" value="10000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">😊 Улучшение UX</div>
+              <div class="admin-fields">
+                <label>Коэффициент
+                  <input type="number" step="0.1" id="coefUx" value="2.5" />
+                </label>
+                <label>Конвертация
+                  <input type="number" step="100" id="convUx" value="15000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">🛡️ Снижение рисков</div>
+              <div class="admin-fields">
+                <label>Коэффициент
+                  <input type="number" step="0.1" id="coefRisk" value="2" />
+                </label>
+                <label>Конвертация
+                  <input type="number" step="100" id="convRisk" value="2000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">❤️ Забота о клиенте</div>
+              <div class="admin-fields">
+                <label>Коэффициент
+                  <input type="number" step="0.1" id="coefCare" value="1.5" />
+                </label>
+                <label>Конвертация
+                  <input type="number" step="100" id="convCare" value="5000" />
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="admin-section-divider"></div>
+          <h3 class="card-title">Стоимость работы команды</h3>
+          <p class="card-subtitle">Ставки по умолчанию, ₽/день (используются в таблице трудозатрат).</p>
+          <div class="admin-grid">
+            <div class="admin-row">
+              <div class="admin-label">Аналитик</div>
+              <div class="admin-fields">
+                <label>Ставка, ₽/день
+                  <input type="number" step="500" id="rateAnalyst" value="10000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">Дизайнер</div>
+              <div class="admin-fields">
+                <label>Ставка, ₽/день
+                  <input type="number" step="500" id="rateDesigner" value="7000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">Фронтенд</div>
+              <div class="admin-fields">
+                <label>Ставка, ₽/день
+                  <input type="number" step="500" id="rateFrontend" value="9000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">Бэкенд</div>
+              <div class="admin-fields">
+                <label>Ставка, ₽/день
+                  <input type="number" step="500" id="rateBackend" value="20000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">Системный аналитик (интеграция)</div>
+              <div class="admin-fields">
+                <label>Ставка, ₽/день
+                  <input type="number" step="500" id="rateSystemAnalyst" value="12000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">Разработчик смежной команды (интеграция)</div>
+              <div class="admin-fields">
+                <label>Ставка, ₽/день
+                  <input type="number" step="500" id="rateIntegrationDev" value="20000" />
+                </label>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-label">Архитектор</div>
+              <div class="admin-fields">
+                <label>Ставка, ₽/день
+                  <input type="number" step="500" id="rateArchitect" value="20000" />
+                </label>
+              </div>
+            </div>
+          </div>
+          <p class="admin-hint">
+            Изменения коэффициентов и ставок автоматически применяются к расчёту годовой выгоды и стоимости.
+          </p>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
