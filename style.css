@@ -725,13 +725,15 @@ textarea {
   padding: 4px 8px;
 }
 
-/* Калибровочные примеры для критериев */
+/* Калибровочные примеры для критериев (подсказки) — мелкий серый текст */
 .criterion-calibration {
   margin-top: 8px;
   padding: 8px 12px;
   background: rgba(0, 0, 0, 0.03);
   border-radius: 8px;
   font-size: 11px;
+  line-height: 1.35;
+  color: #757575;
   color: var(--color-text-muted);
 }
 
@@ -739,6 +741,9 @@ textarea {
   width: 100%;
   border-collapse: collapse;
   margin-top: 4px;
+  font-size: 11px;
+  color: #757575;
+  color: var(--color-text-muted);
 }
 
 .criterion-calibration th,
@@ -746,12 +751,17 @@ textarea {
   padding: 4px 8px;
   text-align: left;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  font-weight: normal;
+  color: #757575;
+  color: var(--color-text-muted);
 }
 
 .criterion-calibration th {
   font-weight: 600;
   font-size: 10px;
   text-transform: uppercase;
+  color: #9e9e9e;
   color: var(--color-text-soft);
 }
 
@@ -760,17 +770,31 @@ textarea {
   width: 60px;
 }
 
+/* Текст описания во второй колонке — явно мелкий и серый */
+.criterion-calibration td:last-child {
+  font-size: 11px;
+  color: #757575;
+  color: var(--color-text-muted);
+  font-weight: normal;
+}
+
 .score-1 {
+  color: #9e9e9e;
   color: var(--color-text-soft);
+  font-size: 11px;
 }
 
 .score-3 {
+  color: #757575;
   color: var(--color-text-muted);
   font-weight: 500;
+  font-size: 11px;
 }
 
 .score-5 {
+  color: #d81b60;
   color: var(--color-primary);
   font-weight: 600;
+  font-size: 11px;
 }
 
