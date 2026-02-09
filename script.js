@@ -35,6 +35,121 @@ function updateBriefStatus() {
   }
 }
 
+// Функция для адаптации критериев под тип задачи
+function adjustCriteriaByTaskType() {
+  const taskType = document.getElementById("taskType")?.value || "";
+
+  // Найти все критерии
+  const revenueCard = document.querySelector('[data-criterion="revenue"]');
+  const uxCard = document.querySelector('[data-criterion="ux"]');
+  const riskCard = document.querySelector('[data-criterion="risk"]');
+  const careCard = document.querySelector('[data-criterion="care"]');
+
+  // Сбросить все оценки
+  if (document.getElementById("scoreRevenue")) document.getElementById("scoreRevenue").value = "0";
+  if (document.getElementById("scoreUx")) document.getElementById("scoreUx").value = "0";
+  if (document.getElementById("scoreRisk")) document.getElementById("scoreRisk").value = "0";
+  if (document.getElementById("scoreCare")) document.getElementById("scoreCare").value = "0";
+
+  // Скрыть все критерии по умолчанию
+  if (revenueCard) revenueCard.style.display = "none";
+  if (uxCard) uxCard.style.display = "none";
+  if (riskCard) riskCard.style.display = "none";
+  if (careCard) careCard.style.display = "none";
+
+  // Настроить видимость и поведение критериев в зависимости от типа задачи
+  switch (taskType) {
+    case "regulatory":
+      // Регуляторные: только риски = 5 (обязательно)
+      if (riskCard) riskCard.style.display = "block";
+      if (document.getElementById("scoreRisk")) document.getElementById("scoreRisk").value = "5";
+
+      // Обновить описание
+      if (riskCard) {
+        const riskHeader = riskCard.querySelector(".criterion-header h3");
+        const riskCaption = riskCard.querySelector(".criterion-caption");
+        if (riskHeader) riskHeader.textContent = "Снижение рисков (обязательно)";
+        if (riskCaption) riskCaption.innerHTML = "Штраф ЦБ / приостановка лицензии";
+
+        // Обновить подсказку
+        const riskDescription = riskCard.querySelector(".criterion-description");
+        if (riskDescription) {
+          riskDescription.innerHTML =
+            "Предотвращение штрафов до 6% оборота (~60 млн ₽) и остановки лицензии";
+        }
+      }
+      break;
+
+    case "tech-debt":
+      // Техдолг: фокус на рисках
+      if (riskCard) riskCard.style.display = "block";
+      if (uxCard) uxCard.style.display = "block";
+
+      // Обновить описание рисков
+      if (riskCard) {
+        const techRiskDescription = riskCard.querySelector(".criterion-description");
+        if (techRiskDescription) {
+          techRiskDescription.innerHTML = "Вероятность сбоя × ущерб (млн ₽)";
+        }
+      }
+      break;
+
+    case "bug":
+      // Баги: фокус на UX
+      if (uxCard) uxCard.style.display = "block";
+      if (riskCard) riskCard.style.display = "block";
+
+      // Обновить описание UX
+      if (uxCard) {
+        const bugUxDescription = uxCard.querySelector(".criterion-description");
+        if (bugUxDescription) {
+          bugUxDescription.innerHTML = "Количество затронутых пользователей";
+        }
+      }
+      break;
+
+    case "business":
+    case "ux-improvement":
+    case "integration":
+    default:
+      // Бизнес-задачи: все критерии
+      if (revenueCard) revenueCard.style.display = "block";
+      if (uxCard) uxCard.style.display = "block";
+      if (riskCard) riskCard.style.display = "block";
+      if (careCard) careCard.style.display = "block";
+
+      // Восстановить оригинальные описания
+      if (riskCard) {
+        const origRiskHeader = riskCard.querySelector(".criterion-header h3");
+        const origRiskCaption = riskCard.querySelector(".criterion-caption");
+        if (origRiskHeader) origRiskHeader.textContent = "Снижение рисков";
+        if (origRiskCaption) origRiskCaption.innerHTML = "ИБ, мошенничество, штрафы ЦБ";
+      }
+
+      if (uxCard) {
+        const origUxDescription = uxCard.querySelector(".criterion-description");
+        if (origUxDescription) {
+          origUxDescription.innerHTML =
+            "Улучшение цифрового и офлайн-опыта клиентов: понятность, скорость, меньше ошибок и тупиков.";
+        }
+      }
+      break;
+  }
+
+  updateBriefStatus();
+  updatePaybackAndRecommendation();
+}
+
+// Инициализация обработчика для типа задачи
+function initTaskTypeListener() {
+  const taskTypeSelect = document.getElementById("taskType");
+  if (!taskTypeSelect) return;
+
+  taskTypeSelect.addEventListener("change", () => {
+    adjustCriteriaByTaskType();
+  });
+}
+
 function getCriterionScore(id) {
   const el = document.getElementById(id);
   if (!el) return 0;
@@ -75,13 +190,13 @@ function calculateAnnualBenefit() {
 
   // Коэффициенты и конверсии (можно настраивать в админ-панели)
   const coefRevenue = getAdminNumber("coefRevenue", 3);
-  const convRevenue = getAdminNumber("convRevenue", 10000);
+  const convRevenue = getAdminNumber("convRevenue", 20000);
 
   const coefUx = getAdminNumber("coefUx", 2.5);
   const convUx = getAdminNumber("convUx", 15000);
 
   const coefRisk = getAdminNumber("coefRisk", 2);
-  const convRisk = getAdminNumber("convRisk", 2000);
+  const convRisk = getAdminNumber("convRisk", 10000);
 
   const coefCare = getAdminNumber("coefCare", 1.5);
   const convCare = getAdminNumber("convCare", 5000);
@@ -212,6 +327,7 @@ function initAdminPanel() {
   const passwordInput = document.getElementById("adminPassword");
   const adminSection = document.getElementById("adminSection");
   const errorEl = document.getElementById("adminError");
+  const effortCard = document.querySelector(".card-effort");
 
   if (!form || !passwordInput || !adminSection) return;
 
@@ -223,6 +339,10 @@ function initAdminPanel() {
       adminSection.classList.remove("hidden");
       adminSection.setAttribute("aria-hidden", "false");
       form.classList.add("hidden");
+      if (effortCard) {
+        effortCard.classList.remove("hidden");
+        effortCard.setAttribute("aria-hidden", "false");
+      }
       if (errorEl) {
         errorEl.textContent = "";
       }
@@ -462,10 +582,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initAdminPanel();
   initRecalculateButton();
   initSendButton();
-
+  initTaskTypeListener();
   applyPrefilledParamsFromUrl();
 
   // Стартовое состояние
+  adjustCriteriaByTaskType();
   updateBriefStatus();
   updatePaybackAndRecommendation();
 });
