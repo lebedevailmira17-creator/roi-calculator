@@ -701,3 +701,76 @@ textarea {
   }
 }
 
+/* Стили для типа задачи */
+#taskType {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-subtle);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  color: var(--color-text-main);
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+#taskType:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px rgba(216, 27, 96, 0.16);
+  background-color: #ffffff;
+}
+
+#taskType option {
+  padding: 4px 8px;
+}
+
+/* Калибровочные примеры для критериев */
+.criterion-calibration {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.criterion-calibration table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 4px;
+}
+
+.criterion-calibration th,
+.criterion-calibration td {
+  padding: 4px 8px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.criterion-calibration th {
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+.criterion-calibration td:first-child {
+  font-weight: 500;
+  width: 60px;
+}
+
+.score-1 {
+  color: var(--color-text-soft);
+}
+
+.score-3 {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.score-5 {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
